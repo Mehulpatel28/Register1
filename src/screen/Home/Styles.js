@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     },
     item: {
         color: 'white',
-        fontSize: 20,
+        fontSize: 15,
     },
     email: {
         color: 'white',

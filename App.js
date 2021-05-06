@@ -15,6 +15,8 @@ import Drawer from './src/screen/Drawer/Drawer';
 import SplashScreen from './src/screen/SplashScreen/SplashScreen';
 import { Provider } from 'react-redux'
 import store from './src/Redux/store'
+import { RootNavigator } from './src/Routes';
+
 
 // function SplashScreen({navigation}) {
 //   setTimeout(() => {
@@ -30,13 +32,18 @@ import store from './src/Redux/store'
 //   );
 // }
 
-const Stack = createStackNavigator();
+// const Stack = createStackNavigator();
 
 const App = () => {
   return (
     <Provider store={store}>
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
+      <RootNavigator/>
+      </Provider>
+  );
+};
+
+    {/* <NavigationContainer>
+      <Stack.Navigator>
         <Stack.Screen name="Splash_Screen" component={SplashScreen} options={{headerShown:false}}/>
         <Stack.Screen
           name="Login"
@@ -72,9 +79,6 @@ const App = () => {
         <Stack.Screen name="Details" component={Details}/>
         <Stack.Screen name="Profile" component={Profile} />
       </Stack.Navigator>
-    </NavigationContainer>
-    </Provider>
-  );
-};
+    </NavigationContainer> */}
 
 export default App;

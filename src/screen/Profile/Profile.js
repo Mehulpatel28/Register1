@@ -11,6 +11,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import InputText from '../../Components/InputText';
 import * as Animatable from 'react-native-animatable';
 import styles from './Styles';
+import {CommonActions} from '@react-navigation/routers';
 
 class Profile extends Component {
   constructor(props) {
@@ -24,27 +25,51 @@ class Profile extends Component {
   }
 
   componentDidMount() {
-    this.check_data();
+    this.data();
   }
 
-  check_data = async () => {
-    try {
-      let user_data = await AsyncStorage.getItem('register_data');
-      console.log('registered_data from check_data:', user_data);
+  // check_data = async () => {
+  //   try {
+  //     let user_data = await AsyncStorage.getItem('register_data');
+  //     console.log('registered_data from check_data:', user_data);
 
-      var parsed = JSON.parse(user_data);
-      this.setState({
-        firstname: parsed.firstname,
-        lastname: parsed.lastname,
-        email: parsed.email,
-        phone: parsed.phone,
-        password: parsed.password,
-      });
-      console.log('register_data from firstName:', parsed.firstname);
-    } catch (error) {
-      alert('heello');
-    }
+  //     var parsed = JSON.parse(user_data);
+  //     this.setState({
+  //       firstname: parsed.firstname,
+  //       lastname: parsed.lastname,
+  //       email: parsed.email,
+  //       phone: parsed.phone,
+  //       password: parsed.password,
+  //     });
+  //     console.log('register_data from firstName:', parsed.firstname);
+  //   } catch (error) {
+  //     alert('heello');
+  //   }
+  // };
+
+  data = async () => {
+    var user_data = await AsyncStorage.getItem('register_data');
+    var parsed = JSON.parse(user_data);
+    this.setState({
+      firstname: parsed.firstname,
+      lastname: parsed.lastname,
+      email: parsed.email,
+      phone: parsed.phone,
+    });
+    AsyncStorage.setItem('register_data', JSON.stringify(user_data));
   };
+  resetStack = CommonActions.reset({
+    index: 0,
+    routes: [{name: 'SplashScreen'}],
+  });
+
+  removeAuthentication = async () => {
+    try {
+      await AsyncStorage.clear();
+      this.props.navigation.dispatch(this.resetStack);
+    } catch (e) {}
+  };
+
 
   render() {
     return (
@@ -69,7 +94,7 @@ class Profile extends Component {
 
           <TouchableOpacity
             style={styles.btn1}
-            onPress={() => this.props.navigation.navigate('Login')}>
+            onPress={this.removeAuthentication}>
             <Text style={styles.txt}>Logout</Text>
           </TouchableOpacity>
         </Animatable.View>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { CommonActions } from '@react-navigation/routers';
 import { View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -15,6 +16,13 @@ export default class Auth extends Component {
         this.setState({ email: email , password: password })
         this.check()
     }
+    resetToAuth = CommonActions.reset({
+        index: 0,
+        routes: [{
+            name: "Authenticated"
+        }]
+    })
+
 
     check = async () => {
         try {
@@ -25,10 +33,11 @@ export default class Auth extends Component {
             console.log(this.state.email + '--' + this.state.password)
             console.log('data from auth parsed-- ', parsed.email, parsed.password)
             if (parsed.email === this.state.email && parsed.password === this.state.password) {
-                this.props.navigation.replace("Home");
+
+                this.props.navigation.dispatch(this.resetToAuth);
             } else {
                 alert('Email or password is invalid');
-                this.props.navigation.navigate('Login');
+                this.props.navigation.navigate("Login");
             }
         }
         catch {

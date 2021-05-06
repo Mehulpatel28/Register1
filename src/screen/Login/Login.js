@@ -15,7 +15,7 @@ import styles from './Styles'
 
 
 
-export default class Login extends Component {
+class Login extends Component {
 
   constructor(props) {
     super(props);
@@ -27,23 +27,29 @@ export default class Login extends Component {
     }
   }
 
-  checked_filed = () => {
-    const { email, password } = this.state
-    if (email == "") {
-      alert("please fill email ")
-      return false;
-    } else if (password == "") {
-      alert("please fill password")
-      return false;
-    }
-    return true;
-  }
+  // checked_filed = () => {
+  //   const { email, password } = this.state
+  //   if (email == "") {
+  //     alert("please fill email ")
+  //     return false;
+  //   } else if (password == "") {
+  //     alert("please fill password")
+  //     return false;
+  //   }
+  //   return true;
+  // }
 
-  making_api_call = () => {
-    if (this.checked_filed()) {
-      this.props.navigation.navigate('Auth', { email: this.state.email, password: this.state.password});
-    }
-  }
+  // making_api_call = () => {
+  //   if (this.checked_filed()) {
+  //     this.props.navigation.navigate('Home')
+  //   }
+  // }
+
+  // making_api_call = () => {
+  //   if (this.checked_filed()) {
+  //     this.props.navigation.navigate('Auth', { email: this.state.email, password: this.state.password});
+  //   }
+  // }
 
 //   making_api_call_all_fields = () => {
 //     if (this.allFieldValidation()) {
@@ -126,3 +132,4 @@ export default class Login extends Component {
 
 
 
+export default Login;
